@@ -10,11 +10,6 @@ Clone the repository:
 
     git clone git@github.com:tonyobanon/hackerbay_task.git
 
-Login to docker:
-
-> - Open `bin/start_disposable.sh`
-> - Enter you credentials here: `yes | docker login -username '' -password ''` 
-
 
 Start your container:
 
