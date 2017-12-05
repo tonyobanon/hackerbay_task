@@ -5,11 +5,11 @@ typings/
 cache.properties
 .DS_Store
 /node_modules
-#/coverage
+/coverage
 app/config/local.json
 .vagrant
 **/node_modules
-#**/coverage
+**/coverage
 newrelic_agent.log
 npm-debug.log
 jsconfig.json
