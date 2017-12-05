@@ -46,9 +46,6 @@ The endpoints can be downloaded [as a postman collection](https://drive.google.c
 
 Custom metric reporting is integration into this app, using StatsD and Graphite Dashboard 
 
-![Metrics Dashbaord](https://drive.google.com/open?id=1GiE7S1f_gtqKShNz0OJSW0v1oyY4H1Qy)
-
-
     Open http://localhost:10001 to view your metrics dashboard
 
 
