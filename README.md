@@ -1,66 +1,76 @@
-# Catalog Service
 
-This repository contains the code for the Catalog Service and indexers; a REST based http api written in nodejs for searching
-through the Konga product catalog.
+# Hackerbay Microservice
 
-This project is responsible for both indexing and searching the catalog.
+This project is a simple NodeJS dockerized app  that performs Jwt authentication, Json patching and image thumbnail generation. 
+
 
 ## Usage: ##
 
-Set npm registry to Konga's private npm repository:
+Clone the repository:
 
-    npm set registry http://npm.igbimo.com:4873
+    git clone git@github.com:tonyobanon/hackerbay_task.git
 
-Install the dependencies:
+Login to docker:
 
-    npm install
+> - Open `bin/start_disposable.sh`
+> - Enter you credentials here: `yes | docker login -username '' -password ''` 
 
-Load environment variables:
 
-    source .env
+Start your container:
+
+    $ bin/start_disposable.sh
+
 
 Start the application:
 
-    node catalog.js
+    node server
 
-OR by using PM2:
 
-    pm2 start pm2.json
-
-PM2 is more suitable for development environment as it monitors file updates and restarts the service.
 
 The following URL should be accessible after running the application:
 
-    http://127.0.0.1:8080/
+    http://127.0.0.1:10000/v1/api-docs
 
-## Tests: ##
 
-All tests should be added to the **/test** folder in your project. The test framework used is Mocha, and the code coverage tool is Istanbul.
+## API Endpoints: ##
+The endpoints can be downloaded [as a postman collection](https://drive.google.com/open?id=1BXW7F0EFvYEqDe6QoidEyJA8TaolyI_b)
+> **Note:**
 
-The following command can be run to use the example test which should output success:
+> - For Image thumbnail generation, open the link below in your browser 
+    http://localhost:10000/v1/protected/image/resize?imageURL=https://upload.wikimedia.org/wikipedia/commons/3/36/Hopetoun_falls.jpg&token={JWT_TOKEN}
 
-    istanbul cover _mocha -- -R spec
 
-Note that no code coverage will be processed until code in the project is called by the test.
 
-More information regarding tests can be found at [http://mochajs.org/](http://mochajs.org/ "Mocha Test Framework") and [http://sinonjs.org/](http://sinonjs.org/ "Sinon JS").
 
-There is a helper method already defined inside of `package.json`, to run unit test, run `npm test`.
-To run regression test, run `npm run-script regression`
+## Metrics and Telemetry: ##
+
+Custom metric reporting is integration into this app, using StatsD and Graphite Dashboard 
+
+![Metrics Dashbaord](https://drive.google.com/open?id=1GiE7S1f_gtqKShNz0OJSW0v1oyY4H1Qy)
+
+
+    Open http://localhost:10001 to view your metrics dashboard
+
+
+
+## Run tests: ##
+
+    npm run test
+
+
 
 ## Linting
-You will need to lint before creating a PR.
 ```
-jshint .
-jscs .
+npm run lint .
 ```
+
 ## Development Environment
 
 ### Docker
 
 #### Starting Containers
 
-This project has been setup to use docker to create a development environment. The readme assumes docker version 1.9.1 installed on your system.
+This project has been setup to use docker to create a development environment. The readme assumes docker version 17 installed on your system.
 
 The project contains bash scripts to simplify the interaction with docker and enable dynamic code changes. These can be found in
 ```
@@ -78,22 +88,19 @@ If the project's image cannot be found, it will be built from the Dockerfile aut
 
 When all is complete, you will be given a printout showing you your running containers. Part of the printout should contain something like this:
 ```
-.....   0.0.0.0:32913->6379/tcp     catalog_redis
-.....   0.0.0.0:32914->9200/tcp     catalog_elasticsearch
-.....   0.0.0.0:32920->8080/tcp     catalog_web_app
+.....   0.0.0.0:10000->8080/tcp     hackerbay_web_app
+.....   0.0.0.0:8125->8125/udp     	hopsoft/graphite-statsd
+.....   0.0.0.0:10001->80/tcp     	hopsoft/graphite-statsd
 ```
 
-This tells you that the various machines exist "locally" at 0.0.0.0 and that the exposed ports have been mapped to port 32913 for the redis container, 32914 for the mysql container and 32920 for the like service web app container. Again, these are examples - the actual values and machine names for your services may differ.
+This tells you that the various machines exist "locally" at 0.0.0.0 and that the exposed ports have been mapped respectively.
  
-Now, if using Docker Machine you can lookup the ip address of your docker host by issuing the following command:
+You can view your running containers by issuing the following command:
 
 ```
-docker-machine ip default
+docker ps
 ```
 
-Which will return the IP address of the machines where the images run. For example: ```192.168.99.100```
-
-Therefore, from above examples, your started web-app (catalog_web_app) can be found at: ```192.168.99.100:32920```
 
 #### Stopping Containers
 
@@ -129,24 +136,19 @@ This command will start up all required infrastructure containers, and build ima
 
 You will be connected to the /src folder inside the container. The source code is a mapping of your own source code folder on your host, so any changes to the code on the host machine will be reflected on the docker container and vice versa.
 
-The container will also link in a running web-app container (or whatever a project requires for full regression testing) should such a container instance be running. If nothing is running, it will only connect to the infrastructure containers.
-
-
-### Regression
-
-To start up a separate instance with a clean database and Redis instance, use the following command:
-
-```
-./bin/run_regression.sh
-```
-
-This command will start up all required infrastructure containers, create a new database and populate the database with initial test data.
-
-These containers will be destroyed after the regression test is complete.
-
 
 ### Environmental Variables
 
 The project's environmental variables (for the development environment) are stored in a `.env` file in the project root. This file is intended for use during docker container creation.
 
-Note that things like REDIS and ELASTICSEARCH IPs and Ports are handled by docker linking env vars, but should they not be linked in via docker, you can provide an alternative in this file.
+
+----------
+
+
+----------
+
+
+----------
+
+
+> *Tony Anyanwu*

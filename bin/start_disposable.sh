@@ -16,7 +16,7 @@ else
 fi
 
 echo " ----- Logging in to the Docker Registry ----- "
-yes | docker login -u tonyobanon -p 'smart911'
+yes | docker login -username '' -password ''
 
 echo " ----- Starting Up Infrastructure Containers -----"
 docker-compose -p hackerbay_ up -d
