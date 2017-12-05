@@ -125,7 +125,7 @@ describe('AuthService', () => {
         it('should fail if an unknown jwt token is provided', (done) => {
 
             sandbox.stub(mockedJwt, 'verifyToken').resolves(fixtures.jwtTokenData);
-            sandbox.stub(authService, '_getJWT').resolves(null);
+            sandbox.stub(mockedDatastore, 'get').resolves(null);
 
             authService.verify(fixtures.jwtToken)
                 .then(() => {
@@ -146,7 +146,7 @@ describe('AuthService', () => {
         it('should fail if an inactive jwt token is provided', (done) => {
 
             sandbox.stub(mockedJwt, 'verifyToken').resolves(fixtures.jwtTokenData);
-            sandbox.stub(authService, '_getJWT').resolves(fixtures.expiredJwtTokenEntity);
+            sandbox.stub(mockedDatastore, 'get').resolves(fixtures.expiredJwtTokenEntity);
 
             authService.verify(fixtures.jwtToken)
                 .then(() => {
