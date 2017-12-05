@@ -58,7 +58,7 @@ Custom metric reporting is integration into this app, using StatsD and Graphite 
 
 ## Linting
 ```
-npm run lint .
+npm run lint
 ```
 
 ----------
