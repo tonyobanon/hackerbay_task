@@ -1,0 +1,198 @@
+  swagger: "2.0"
+  info:
+    version: "1.0.0"
+    title: "Hackerbay Service"
+    description: "Dockerized NodeJS sample app"
+  host: ""
+  basePath: "/v1"
+  schemes:
+    - "http"
+  consumes:
+    - "application/json"
+  produces:
+    - "application/json"
+  paths:
+
+    /auth/login:
+      post:
+        description: "allow users to login and generate a JWT token to represent their session"
+        operationId: "login"
+        produces:
+          - "application/json"
+        parameters:
+          -
+            name: "username"
+            in: "path"
+            description: "the login username"
+            required: true
+            type: "string"
+          -
+            name: "password"
+            in: "path"
+            description: "the login password"
+            required: true
+            type: "string"
+        responses:
+          "200":
+            description: "JWT token to be authenticate further requests"
+            schema:
+              properties:
+                status:
+                  type: "string"
+                data:
+                  $ref: "#/definitions/LoginResponse"
+
+          "403":
+            description: "Unable to generate Jwt Token"
+            schema:
+              $ref: "#/definitions/ErrorModel"
+          "404":
+            description: "Private key of JWT Issuer was not found"
+            schema:
+              $ref: "#/definitions/ErrorModel"
+
+
+    /auth/logout:
+      post:
+        description: "allow users logout based on JWT token"
+        operationId: "logout"
+        produces:
+          - "application/json"
+        parameters:
+          -
+            name: "jwt_token"
+            in: "path"
+            description: "the jwt token returned from the login endpoint"
+            required: true
+            type: "string"
+
+        responses:
+          "200":
+            description: ""
+            schema:
+              properties:
+                status:
+                  type: "string"
+                data:
+                  type: "object"
+
+          "412":
+            description: "Invalid session"
+            schema:
+              $ref: "#/definitions/ErrorModel"
+
+          "401":
+            description: "Invalid Jwt Token"
+            schema:
+              $ref: "#/definitions/LogoutResponse"
+
+          "404":
+            description: "Public key of JWT Issuer was not found"
+            schema:
+              $ref: "#/definitions/ErrorModel"
+          "500":
+            description: "Internal server error"
+            schema:
+            $ref: "#/definitions/ErrorModel"
+
+
+    /image/resize:
+      get:
+        description: "allow users to generate an image thumbnail, given a public image URL"
+        operationId: "generateThumbnail"
+        produces:
+          - "application/json"
+        parameters:
+          -
+            name: "imageURL"
+            in: "path"
+            description: "Public Image URL"
+            required: true
+            type: "string"
+
+        responses:
+          "200":
+            description: "Generated image thumbnail"
+            schema:
+              properties:
+                status:
+                  type: "string"
+                data:
+                  type: "buffer"
+          "400":
+            description: "Invalid image url"
+            schema:
+            $ref: "#/definitions/ErrorModel"
+          "500":
+            description: "Internal server error"
+            schema:
+              $ref: "#/definitions/ErrorModel"
+
+
+
+    /json/patch:
+      post:
+        description: "apply json patch"
+        operationId: "patchJson"
+        produces:
+          - "application/json"
+        parameters:
+          -
+            name: "original"
+            in: "path"
+            description: "Original Json"
+            required: true
+            type: "object"
+          -
+            name: "patch"
+            in: "path"
+            description: "Json to patch"
+            required: true
+            type: "object"
+
+        responses:
+          "200":
+            description: "Patched Json"
+            schema:
+              properties:
+                status:
+                  type: "string"
+                data:
+                  type: "object"
+
+  definitions:
+
+    LoginResponse:
+      type: "object"
+      required:
+          - "jwt_token"
+          - "timestamp"
+      description: "The Jwt Token, and login timestamp"
+      properties:
+          jwt_token:
+            type: "string"
+          timestamp:
+            type: "integer"
+
+    LogoutResponse:
+      type: "object"
+      required:
+           - "timestamp"
+      description: "logout timestamp"
+      properties:
+          timestamp:
+            type: "integer"
+
+    ErrorModel:
+      type: "object"
+      required:
+        - "status"
+        - "code"
+        - "message"
+      properties:
+        status:
+          type: "string"
+        code:
+          type: "string"
+        message:
+          type: "string"

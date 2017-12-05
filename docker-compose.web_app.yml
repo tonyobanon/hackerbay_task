@@ -1,0 +1,20 @@
+version: '2'
+services:
+  hackerbay:
+    build: .
+    container_name: hackerbay_web_app
+
+    # Expose the 8080 port.
+    ports:
+        - "8080"
+
+    # Set the default environment variables when we run it via compose.
+    env_file:
+        - ./.env
+
+    # Map the exposed folder volumes to the directories within our repos.
+    volumes:
+        - ./docker_logs/hackerbay_service:/var/log/applications/hackerbay_service
+
+    networks:
+        - main_network

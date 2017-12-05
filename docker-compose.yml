@@ -1,0 +1,19 @@
+version: '2'
+services:
+  graphite-statsd:
+      container_name: hackerbay_graphite_statsd
+      image: hopsoft/graphite-statsd
+      ports:
+        - "10001:80"
+        - "2003"
+        - "2004"
+        - "2023"
+        - "2024"
+        - "8125:8125/udp"
+        - "8126"
+      networks:
+        - main_network
+
+networks:
+  main_network:
+    driver: bridge

@@ -1,0 +1,11 @@
+{
+    "apps" : [
+        {
+            "name"            : "Hackerbay_Task",
+            "script"          : "server.js",
+            "min_uptime"      : "5000",
+            "max_restarts"    : "50",
+            "vizion"          : false
+        }
+    ]
+}

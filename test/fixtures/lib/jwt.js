@@ -1,0 +1,23 @@
+'use strict';
+
+let jwtToken = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOjM4MCwiaXNzIjoiaGFja2VyYmF5Iiwic1Rva2VuIjo' +
+    'iNmQyODRkMGI1ZWE2ZjFmYTFlYjBmOGJmYmEzZTFlYmQ1ZWJkMmM5NjQyM2MwMGZkMWRkNjZhNDM5ZDc1N2EyZTRmZTk4YWM3MGM' +
+    '1MjQ3YzRjNWFiOTA1ZmQ4YmZhOTU3NThjYjY1NGY3MjA3N2MwOGQzOTdiYzFhNGQwOGRhMzMiLCJpYXQiOjE1MTIzNzUyMzgsImV' +
+    '4cCI6MTUxMjQ2MTYzOH0.Bfk5VEqj25Vty5LFMZGT_XK9NLUWm-_06A7pjIVHTFUFLhOxhB4yMMVN4KNTjtbME1QbJRRsn0M6dPON' +
+    'dIQ4lK79hIeeBcx-5FrEMFhLOYqEMNQfMwQISkzOqu3YGq3jvSgCoYp2jX1RjD7zwpJQAeFxFTS0qEYpxZxqP5o6H_I';
+let jwtIssuer = 'hackerbay';
+let jwtTokenData = {jti:380,iss:'hackerbay',sToken:'6d284d0b5ea6f1fa1eb0f8bfba3e1ebd5ebd2c96423c00fd1dd66a' +
+'439d757a2e4fe98ac70c5247c4c5ab905fd8bfa95758cb654f72077c08d397bc1a4d08da33'};
+
+let invalidJwtToken = 'eyJhbGciOiJShmgjzUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdHkiOjc0NCwiaXNzIjoiaGFja2VyYmF5Iiwia' +
+    'WF0IjoxNTEyMzYzMDQzLCJzVG9rZW4iOiI2ZDI4NGQwYjVlYTZmMWZhMWViMGY4YmZiYTNlMWViZDVlYmQyYzk2NDIzYzAwZmQxZGQ' +
+    '2NmE0MzlkNzU3YTJlNGZlOThhYzcwYzUyNDdjNGM1YWI5MDVmZDhiZmE5NTc1OGNiNjU0ZjcyMDc3YzA4ZDM5N2JjMWE0ZDA4ZGEzMy' +
+    'IsImV4cCI6MTUxMjQ0OTQ0M30.NcqAF8V2EJ44HBoDVvkSzPgkVg92O-NEvpQm3bYxgyOW7bl7DUsnt84bZ1QvMQVGJsIgyK6G6y19-h' +
+    'qDG_FcdfD5Sv6ilM7pzfT5CURJNSJn_5YIlR-Iac2nAIjPv6rVKAyfp53oiPHJVk_qPPCTCVRRXfHXYM8q2u65bqGTa0I';
+
+module.exports = {
+    jwtToken,
+    jwtIssuer,
+    jwtTokenData,
+    invalidJwtToken
+};

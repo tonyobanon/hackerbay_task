@@ -1,0 +1,11 @@
+{
+    "preset": "airbnb",
+    "maxErrors": null,
+    "excludeFiles": ["node_modules/**", "coverage/**"],
+    "validateIndentation": 4,
+    "requireTrailingComma": false,
+    "disallowSpacesInFunctionDeclaration": {
+        "beforeOpeningRoundBrace": true
+    },
+    "requireCamelCaseOrUpperCaseIdentifiers": "ignoreProperties"
+}
